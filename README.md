@@ -31,6 +31,32 @@ which will output
 Some elaborate process (5002.34 ms)
 ```
 
+Or for something a little more complex:
+
+```ruby
+Staircase.run 'Find some objects' do
+  SomeObject.find_all(criteria).tap do |thing|
+    Staircase.run "Opening #{thing}" do
+      thing.open do |contents|
+        Staircase.info "Found #{contents}"
+      end
+    end
+  end
+end
+```
+
+which could output something like:
+
+```
+Find some objects (123.45 ms)
+  Opening a square box... (14.0 ms)
+    Found an interesting object
+  Opening a puzzle box... (89.32 ms)
+    Found a glinting stone
+  Opening a satchel... (18.84 ms)
+    Found nothing in particular
+```
+
 ## Contributing
 
 1. Fork it
